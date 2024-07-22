@@ -17,24 +17,24 @@ const Navbar = () => {
 
         <div className="hidden gap-[200px] xl:flex">
           <div className="flex gap-20 top-5 items-center">
-            <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+            <p className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer">
               About Us
             </p>
-            <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+            <p className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer">
               Contact Us
             </p>
-            <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+            <p className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer">
               Doctors
             </p>
-            <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+            <p className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer">
               Services
             </p>
           </div>
           <div className="flex gap-6 items-center">
-            <p className=" flex text-lg items-center font-bold text-[#0E02F5] p-[3px] cursor-pointer  transition-all">
+            <p className=" flex text-lg items-center font-bold text-[#0143BE] p-[3px] cursor-pointer  transition-all">
               Login | SignUp
             </p>
-            <p className=" flex text-lg items-center font-bold text-[#0E02F5] p-[3px] cursor-pointer   transition-all">
+            <p className=" flex text-lg items-center font-bold text-[#0143BE] p-[3px] cursor-pointer   transition-all">
               Start Free
             </p>
           </div>
@@ -59,18 +59,18 @@ const Navbar = () => {
         }  flex-col`}
       >
         <div className="flex flex-col items-center">
-        <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
-              About Us
-            </p>
-            <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
-              Contact Us
-            </p>
-            <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
-              Doctors
-            </p>
-            <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
-              Services
-            </p>
+          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+            About Us
+          </p>
+          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+            Contact Us
+          </p>
+          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+            Doctors
+          </p>
+          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+            Services
+          </p>
         </div>
         <div className="flex flex-col  items-center">
           <p className=" flex text-lg items-center bg-[#0E02F5] p-[6px] cursor-pointer text-white rounded-md hover:bg-[#0E02F5] transition-all">

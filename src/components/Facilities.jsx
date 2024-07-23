@@ -23,7 +23,6 @@ const Facilities = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        
       }}
       className="text-white flx justify-center items-center shadow-lg"
     >
@@ -35,7 +34,7 @@ const Facilities = () => {
         <p
           className={`${
             facility === "Intro"
-              ? "bg-[#0143BE] text-white font-bold p-2   cursor-pointer "
+              ? "bg-[#0143BE] text-white font-bold p-2 rounded-lg   cursor-pointer "
               : "text-lg text-[#0143BE] font-bold cursor-pointer"
           }`}
           onClick={() =>
@@ -52,7 +51,7 @@ const Facilities = () => {
         <p
           className={`${
             facility === "Pharma"
-              ? "bg-[#0143BE] text-white font-bold p-2 cursor-pointer"
+              ? "bg-[#0143BE] text-white font-bold p-2 rounded-lg cursor-pointer"
               : "text-lg text-[#0143BE] font-bold cursor-pointer"
           }`}
           onClick={() =>
@@ -69,7 +68,7 @@ const Facilities = () => {
         <p
           className={`${
             facility === "Research"
-              ? "bg-[#0143BE] text-white font-bold p-2 cursor-pointer"
+              ? "bg-[#0143BE] text-white font-bold p-2 rounded-lg cursor-pointer"
               : "text-lg text-[#0143BE] font-bold  cursor-pointer"
           }`}
           onClick={() =>
@@ -86,7 +85,7 @@ const Facilities = () => {
         <p
           className={`${
             facility === "CCU"
-              ? "bg-[#0143BE] text-white font-bold p-2 cursor-pointer"
+              ? "bg-[#0143BE] text-white font-bold p-2 rounded-lg cursor-pointer"
               : "text-lg text-[#0143BE] font-bold  cursor-pointer"
           }`}
           onClick={() =>
@@ -103,7 +102,7 @@ const Facilities = () => {
         <p
           className={`${
             facility === "Doctors"
-              ? "bg-[#0143BE] text-white font-bold p-2 cursor-pointer"
+              ? "bg-[#0143BE] text-white font-bold p-2 rounded-lg cursor-pointer"
               : "text-lg text-[#0143BE] font-bold  cursor-pointer"
           }`}
           onClick={() =>

@@ -19,7 +19,7 @@ const HeaderSection = () => {
           Get appointment
         </button>
       </div>
-      <img src={headerpic} alt="" className="w-[400px] xl:w-[700px]" />
+      <img src="https://www.pngmart.com/files/21/Doctor-PNG-Transparent.png" alt="" className="w-[400px] xl:w-[700px]" />
     </div>
   );
 };

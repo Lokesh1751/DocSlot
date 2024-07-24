@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="relative">
-      <div className="flex mt-4 p-2 shadow-sm justify-between items-center">
+      <div className="flex  p-4 shadow-lg justify-between items-center">
         <div className="flex gap-2 items-center">
           <img
             src="https://rukminim2.flixcart.com/image/850/1000/xif0q/wall-decoration/j/s/d/doctor-logo-1-doctor-1-6x5in-doctor-logo-decalbazaar-original-imagpnchqbfc3jf2.jpeg?q=90&crop=false"
@@ -31,9 +32,11 @@ const Navbar = () => {
             </p>
           </div>
           <div className="flex gap-6 items-center">
-            <p className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all">
-              Login | SignUp
-            </p>
+            <Link to="/Login">
+              <p className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all">
+                Login | SignUp
+              </p>
+            </Link>
             <p className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all">
               Start Free
             </p>
@@ -74,9 +77,11 @@ const Navbar = () => {
           </p>
         </div>
         <div className="flex flex-col items-center gap-4 mt-4">
-          <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
-            Login | SignUp
-          </p>
+          <Link to="/Login">
+            <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
+              Login | SignUp
+            </p>
+          </Link>
           <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
             Start Free
           </p>

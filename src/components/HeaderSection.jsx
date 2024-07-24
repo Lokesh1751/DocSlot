@@ -1,5 +1,4 @@
 import React from "react";
-import headerpic from "../assets/headerpic.png";
 
 const HeaderSection = () => {
   return (
@@ -19,7 +18,11 @@ const HeaderSection = () => {
           Get appointment
         </button>
       </div>
-      <img src="https://www.pngmart.com/files/21/Doctor-PNG-Transparent.png" alt="" className="w-[400px] xl:w-[700px]" />
+      <img
+        src="https://www.pngmart.com/files/21/Doctor-PNG-Transparent.png"
+        alt=""
+        className="w-[400px] xl:w-[700px]"
+      />
     </div>
   );
 };

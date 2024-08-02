@@ -7,7 +7,8 @@ const Navbar = () => {
   return (
     <div className="relative">
       <div className="flex  p-4 shadow-lg justify-between items-center">
-        <div className="flex gap-2 items-center">
+      <Link to="/" className="cursor-pointer">
+      <div className="flex gap-2 items-center">
           <img
             src="https://rukminim2.flixcart.com/image/850/1000/xif0q/wall-decoration/j/s/d/doctor-logo-1-doctor-1-6x5in-doctor-logo-decalbazaar-original-imagpnchqbfc3jf2.jpeg?q=90&crop=false"
             alt=""
@@ -15,6 +16,7 @@ const Navbar = () => {
           />
           <h1 className="text-3xl">DocSlot</h1>
         </div>
+      </Link>
 
         <div className="hidden xl:flex gap-20 items-center">
           <div className="flex gap-10">
@@ -63,13 +65,13 @@ const Navbar = () => {
         } flex flex-col`}
       >
         <div className="flex flex-col items-center gap-4">
-          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer" onClick={()=>setIsOpen(false)}>
             About Us
           </p>
-          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer" onClick={()=>setIsOpen(false)}>
             Contact Us
           </p>
-          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer" onClick={()=>setIsOpen(false)}>
             Doctors
           </p>
           <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
@@ -77,12 +79,12 @@ const Navbar = () => {
           </p>
         </div>
         <div className="flex flex-col items-center gap-4 mt-4">
-          <Link to="/Login">
+          <Link to="/Login" onClick={()=>setIsOpen(false)}>
             <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
               Login | SignUp
             </p>
           </Link>
-          <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
+          <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all" >
             Start Free
           </p>
         </div>

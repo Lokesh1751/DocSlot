@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { FIREBASE_AUTH } from "./firebase.config";
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
+      alert("Logged In Successfully!!");
+      navigate("/");
+    } catch (error) {
+      alert("Wrong Credentials!!");
+      console.error("Error signing in:", error.message);
+    }
+  };
   return (
     <div
       className="flex justify-center items-center h-screen"
@@ -29,16 +46,29 @@ const Login = () => {
           <label htmlFor="email" className="text-xl font-bold">
             Email
           </label>
-          <input type="text" id="email" className="p-2 rounded-lg" />
+          <input
+            type="text"
+            id="email"
+            className="p-2 rounded-lg"
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="password" className="text-xl font-bold">
             Password
           </label>
-          <input type="password" id="password" className="p-2 rounded-lg" />
+          <input
+            type="password"
+            id="password"
+            className="p-2 rounded-lg"
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <div className="flex gap-6 justify-center">
-          <button className="bg-[#0143BE] p-2 rounded-md text-white text-lg font-bold">
+          <button
+            className="bg-[#0143BE] p-2 rounded-md text-white text-lg font-bold"
+            onClick={handleLogin}
+          >
             Login
           </button>
           <Link to="/Register">

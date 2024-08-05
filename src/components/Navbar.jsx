@@ -1,22 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { FIREBASE_AUTH } from "../pages/firebase.config";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(FIREBASE_AUTH);
+      setUser(null);
+      alert("Logged out successfully!");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
+
   return (
     <div className="relative">
-      <div className="flex  p-4 shadow-lg justify-between items-center">
-      <Link to="/" className="cursor-pointer">
-      <div className="flex gap-2 items-center">
-          <img
-            src="https://rukminim2.flixcart.com/image/850/1000/xif0q/wall-decoration/j/s/d/doctor-logo-1-doctor-1-6x5in-doctor-logo-decalbazaar-original-imagpnchqbfc3jf2.jpeg?q=90&crop=false"
-            alt=""
-            className="w-[50px] h-[50px]"
-          />
-          <h1 className="text-3xl">DocSlot</h1>
-        </div>
-      </Link>
+      <div className="flex p-4 shadow-lg justify-between items-center">
+        <Link to="/" className="cursor-pointer">
+          <div className="flex gap-2 items-center">
+            <img
+              src="https://rukminim2.flixcart.com/image/850/1000/xif0q/wall-decoration/j/s/d/doctor-logo-1-doctor-1-6x5in-doctor-logo-decalbazaar-original-imagpnchqbfc3jf2.jpeg?q=90&crop=false"
+              alt="DocSlot Logo"
+              className="w-[50px] h-[50px]"
+            />
+            <h1 className="text-3xl">DocSlot</h1>
+          </div>
+        </Link>
 
         <div className="hidden xl:flex gap-20 items-center">
           <div className="flex gap-10">
@@ -34,11 +60,20 @@ const Navbar = () => {
             </p>
           </div>
           <div className="flex gap-6 items-center">
-            <Link to="/Login">
-              <p className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all">
-                Login | SignUp
+            {!user ? (
+              <Link to="/Login">
+                <p className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all">
+                  Login | SignUp
+                </p>
+              </Link>
+            ) : (
+              <p
+                onClick={handleLogout}
+                className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all"
+              >
+                Logout
               </p>
-            </Link>
+            )}
             <p className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all">
               Start Free
             </p>
@@ -65,26 +100,52 @@ const Navbar = () => {
         } flex flex-col`}
       >
         <div className="flex flex-col items-center gap-4">
-          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer" onClick={()=>setIsOpen(false)}>
+          <p
+            className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer"
+            onClick={() => setIsOpen(false)}
+          >
             About Us
           </p>
-          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer" onClick={()=>setIsOpen(false)}>
+          <p
+            className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer"
+            onClick={() => setIsOpen(false)}
+          >
             Contact Us
           </p>
-          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer" onClick={()=>setIsOpen(false)}>
+          <p
+            className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer"
+            onClick={() => setIsOpen(false)}
+          >
             Doctors
           </p>
-          <p className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer">
+          <p
+            className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer"
+            onClick={() => setIsOpen(false)}
+          >
             Services
           </p>
         </div>
         <div className="flex flex-col items-center gap-4 mt-4">
-          <Link to="/Login" onClick={()=>setIsOpen(false)}>
-            <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
-              Login | SignUp
-            </p>
-          </Link>
-          <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all" >
+          {!user ? (
+            <Link to="/Login" onClick={() => setIsOpen(false)}>
+              <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
+                Login | SignUp
+              </p>
+            </Link>
+          ) : (
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
+                {user.email}
+              </p>
+              <p
+                onClick={handleLogout}
+                className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all"
+              >
+                Logout
+              </p>
+            </div>
+          )}
+          <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
             Start Free
           </p>
         </div>

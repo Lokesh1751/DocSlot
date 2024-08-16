@@ -5,7 +5,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
+import AllDoctors from "./components/AllDoctors";
+import DoctorInfo from "./components/DoctorInfo";
+import Categorydetail from "./components/Categorydetail";
 function App() {
   return (
     <div>
@@ -15,6 +17,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/alldoctors" element={<AllDoctors />} />
+          <Route path="/docinfo/:id" element={<DoctorInfo />} />
+          <Route path="/categoryinfo/:name" element={<Categorydetail />} />
         </Routes>
         <Footer />
       </BrowserRouter>

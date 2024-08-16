@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Doctors = () => {
   return (
@@ -18,9 +19,12 @@ const Doctors = () => {
             Dr. James Wellington
           </h1>
         </div>
-        <button className="bg-[#0143BE] text-white py-3 px-6 rounded-lg shadow hover:bg-[#013b9f] transition duration-300">
+        <Link
+          className="bg-[#0143BE] text-white py-3 px-6 rounded-lg shadow hover:bg-[#013b9f] transition duration-300"
+          to="/alldoctors"
+        >
           View all doctors
-        </button>
+        </Link>
       </div>
       <div className="mt-8 lg:mt-0">
         <div className="relative rounded-full overflow-hidden w-82 h-82 lg:w-96 lg:h-96">

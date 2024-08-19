@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HeaderSection = () => {
   return (
@@ -14,9 +15,11 @@ const HeaderSection = () => {
           visits. It helps manage medical appointments with reminders, ensuring
           timely access to care
         </h1>
-        <button className="bg-[#0143BE] mb-5 text-white p-3 rounded-lg">
-          Get appointment
-        </button>
+        <Link to="/appointment">
+          <button className="bg-[#0143BE] mb-5 text-white p-3 rounded-lg">
+            Get appointment
+          </button>
+        </Link>
       </div>
       <img
         src="https://www.pngmart.com/files/21/Doctor-PNG-Transparent.png"

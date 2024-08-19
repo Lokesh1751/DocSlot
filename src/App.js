@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AllDoctors from "./components/AllDoctors";
 import DoctorInfo from "./components/DoctorInfo";
+import Appointment from "./components/Appointment";
 import Categorydetail from "./components/Categorydetail";
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/alldoctors" element={<AllDoctors />} />
           <Route path="/docinfo/:id" element={<DoctorInfo />} />
           <Route path="/categoryinfo/:name" element={<Categorydetail />} />
+          <Route path="/appointment" element={<Appointment />} />
         </Routes>
         <Footer />
       </BrowserRouter>

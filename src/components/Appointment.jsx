@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { FIRESTORE_DB } from "../pages/firebase.config";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { ClipLoader } from "react-spinners";
 
 const categories = [
   { id: 1, name: "Cardiology" },
@@ -26,6 +27,7 @@ const Appointment = () => {
   const [selectedService, setSelectedService] = useState("");
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -66,11 +68,32 @@ const Appointment = () => {
     fetchDoctors();
   }, [selectedService]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div
+        className="bg-cover bg-center bg-no-repeat h-screen flex items-center justify-center p-4"
+        style={{
+          backgroundImage: `linear-gradient(rgb(0,0,0,0.7), rgb(0,0,0,0.7)), url(https://i0.wp.com/urologyspecialistsofohio.com/wp-content/uploads/2018/03/Section-4-BG-Surgery-and-Procedures-at-Springfield-Urology.jpg?ssl=1)`,
+        }}
+      >
+        <ClipLoader color={"white"} loading={loading} size={50} />
+      </div>
+    );
+  }
+
   return (
     <div
       className="bg-cover bg-center bg-no-repeat h-full flex items-center justify-center p-4"
       style={{
-        backgroundImage: `linear-gradient(rgb(0,0,0,0.5), rgb(0,0,0,0.6)), url(https://i0.wp.com/urologyspecialistsofohio.com/wp-content/uploads/2018/03/Section-4-BG-Surgery-and-Procedures-at-Springfield-Urology.jpg?ssl=1)`,
+        backgroundImage: `linear-gradient(rgb(0,0,0,0.7), rgb(0,0,0,0.7)), url(https://i0.wp.com/urologyspecialistsofohio.com/wp-content/uploads/2018/03/Section-4-BG-Surgery-and-Procedures-at-Springfield-Urology.jpg?ssl=1)`,
       }}
     >
       <div className="bg-white rounded-lg m-4 md:m-8 p-6 md:p-8 max-w-xl md:max-w-5xl w-full shadow-lg">

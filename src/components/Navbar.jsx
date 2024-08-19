@@ -52,9 +52,12 @@ const Navbar = () => {
             <p className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer">
               Contact Us
             </p>
-            <p className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer">
+            <Link
+              to="/alldoctors"
+              className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer"
+            >
               Doctors
-            </p>
+            </Link>
             <p className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer">
               Services
             </p>

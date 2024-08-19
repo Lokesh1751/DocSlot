@@ -20,7 +20,7 @@ const Doctors = () => {
           </h1>
         </div>
         <Link
-          className="bg-[#0143BE] text-white py-3 px-6 rounded-lg shadow hover:bg-[#013b9f] transition duration-300"
+          className="bg-[#0143BE] font-bold text-white py-3 text-center px-6 rounded-lg shadow hover:bg-[#013b9f] transition duration-300"
           to="/alldoctors"
         >
           View all doctors

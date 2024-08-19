@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { FIRESTORE_DB } from "../pages/firebase.config";
 import { getDoc, doc } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
+import { Link } from "react-router-dom";
 
 function DoctorInfo() {
   const [doctor, setDoctor] = useState(null);
@@ -34,7 +35,7 @@ function DoctorInfo() {
     return (
       <p className="text-center flex items-center justify-center h-screen text-gray-600">
         {" "}
-        <ClipLoader color={"#0143BE"} loading={true} size={40} />
+        <ClipLoader color={"#0143BE"} loading={true} size={50} />
       </p>
     );
 
@@ -79,6 +80,11 @@ function DoctorInfo() {
               Email: <span className="font-semibold">{doctor.email}</span>
             </p>
           </div>
+          <Link to="/appointment">
+            <button className="bg-blue-800 font-bold text-white p-3 text-center rounded-lg">
+              Book Appointment
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FIRESTORE_DB } from "../pages/firebase.config";
 import { getDoc, doc } from "firebase/firestore";
+import { ClipLoader } from "react-spinners";
 
 function DoctorInfo() {
   const [doctor, setDoctor] = useState(null);
@@ -29,7 +30,13 @@ function DoctorInfo() {
     fetchDoctor();
   }, [id]);
 
-  if (loading) return <p className="text-center text-gray-600">Loading...</p>;
+  if (loading)
+    return (
+      <p className="text-center flex items-center justify-center h-screen text-gray-600">
+        {" "}
+        <ClipLoader color={"#0143BE"} loading={true} size={40} />
+      </p>
+    );
 
   if (!doctor)
     return (
@@ -43,7 +50,7 @@ function DoctorInfo() {
           <img
             src={doctor.image}
             alt={doctor.name}
-            className="w-full h-full object-cover rounded-l-lg"
+            className="w-[500px] h-[500px]  rounded-l-lg"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-30"></div>
           <h1 className="absolute bottom-4 left-4 text-2xl text-white font-bold drop-shadow-md">
@@ -67,9 +74,6 @@ function DoctorInfo() {
             </p>
             <p className="text-lg text-gray-800">
               Category: <span className="font-semibold">{doctor.category}</span>
-            </p>
-            <p className="text-lg text-gray-800">
-              Contact: <span className="font-semibold">{doctor.contact}</span>
             </p>
             <p className="text-lg text-gray-800">
               Email: <span className="font-semibold">{doctor.email}</span>

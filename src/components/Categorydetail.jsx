@@ -11,6 +11,7 @@ import {
 import { useParams, Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { FIRESTORE_DB } from "../pages/firebase.config";
+import { ClipLoader } from "react-spinners";
 
 const categories = [
   {
@@ -81,6 +82,7 @@ const categories = [
 function CategoryDetail() {
   const { name } = useParams();
   const [specialists, setSpecialists] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const category = categories.find(
     (cat) => cat.name.toLowerCase() === name.toLowerCase()
@@ -104,12 +106,13 @@ function CategoryDetail() {
         );
       } catch (error) {
         console.error("Error fetching specialists: ", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     getSpecialists();
   }, [name]);
-
   return (
     <div className="p-8 max-w-5xl mx-auto">
       {category ? (
@@ -128,28 +131,34 @@ function CategoryDetail() {
           {/* Specialists Section */}
           <div className="p-6">
             <h2 className="text-3xl font-bold mb-4">{name} Specialists</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {specialists.length > 0 ? (
-                specialists.map((spec) => (
-                  <Link key={spec.id} to={`/docinfo/${spec.id}`}>
-                    <div className="bg-white cursor-pointer rounded-lg shadow-lg overflow-hidden">
-                      <img
-                        src={spec.image}
-                        alt={spec.name}
-                        className="w-full h-48 object-contain"
-                      />
-                      <div className="p-4">
-                        <h3 className="text-2xl font-semibold mb-2 text-center">
-                          {spec.name}
-                        </h3>
+            {loading ? (
+              <div>
+                <ClipLoader color={"#0143BE"} loading={true} size={40} />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {specialists.length > 0 ? (
+                  specialists.map((spec) => (
+                    <Link key={spec.id} to={`/docinfo/${spec.id}`}>
+                      <div className="bg-white cursor-pointer rounded-lg shadow-lg overflow-hidden">
+                        <img
+                          src={spec.image}
+                          alt={spec.name}
+                          className="w-full h-48 object-contain"
+                        />
+                        <div className="p-4">
+                          <h3 className="text-2xl font-semibold mb-2 text-center">
+                            {spec.name}
+                          </h3>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                ))
-              ) : (
-                <p>No specialists found.</p>
-              )}
-            </div>
+                    </Link>
+                  ))
+                ) : (
+                  <p>No specialists found.</p>
+                )}
+              </div>
+            )}
           </div>
         </>
       ) : (

@@ -1,41 +1,42 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <div className="bg-[#0143BE] text-white py-10 px-5 lg:px-20">
-      <div className="flex justify-evenly gap-5 flex-wrap  ">
+      <div className="flex justify-evenly gap-5 flex-wrap">
         <div>
           <h2 className="text-xl font-bold mb-4">Quick Links</h2>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="hover:underline">
+              <button className="hover:underline bg-transparent text-white border-none cursor-pointer">
                 About us
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <button className="hover:underline bg-transparent text-white border-none cursor-pointer">
                 Blog
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <button className="hover:underline bg-transparent text-white border-none cursor-pointer">
                 Our Expertise
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <button className="hover:underline bg-transparent text-white border-none cursor-pointer">
                 Faq
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link to="/alldoctors" className="hover:underline">
                 Doctors
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <button className="hover:underline bg-transparent text-white border-none cursor-pointer">
                 Contact us
-              </a>
+              </button>
             </li>
           </ul>
         </div>
@@ -44,34 +45,37 @@ const Footer = () => {
           <h2 className="text-xl font-bold mb-4">Our Services</h2>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="hover:underline">
-                Dental Care
-              </a>
+              <Link to="/categoryinfo/Dermatology" className="hover:underline">
+                Dermatology
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link to="/categoryinfo/Cardiology" className="hover:underline">
                 Cardiology
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Hijama Therapy
-              </a>
+              <Link
+                to="/categoryinfo/Gastroenterology"
+                className="hover:underline"
+              >
+                Gastroenterology
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Massage Therapy
-              </a>
+              <Link to="/categoryinfo/Neurology" className="hover:underline">
+                Neurology
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Ambulance Services
-              </a>
+              <Link to="/categoryinfo/Oncology" className="hover:underline">
+                Oncology
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
-                Medicine
-              </a>
+              <Link to="/categoryinfo/Pediatrics" className="hover:underline">
+                Pediatrics
+              </Link>
             </li>
           </ul>
         </div>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from "./firebase.config";
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { FIREBASE_AUTH, FIRESTORE_DB } from "./firebase.config";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,6 +17,13 @@ const Register = () => {
     if (pass === rPass) {
       try {
         await createUserWithEmailAndPassword(FIREBASE_AUTH, email, pass);
+        await signOut(FIREBASE_AUTH);
+
+        await addDoc(collection(FIRESTORE_DB, "docslot_users"), {
+          email: email,
+          password: pass,
+        });
+
         navigate("/Login");
       } catch (error) {
         alert("Error creating account: " + error.message);
@@ -38,15 +46,14 @@ const Register = () => {
         }}
       >
         <form
-          action=""
           className="flex flex-col gap-4 bg-gradient-to-t from-[#AECAD4] to-white max-w-xl p-14 rounded-lg"
-          onSubmit={addauth} // Attach submit handler to form
+          onSubmit={addauth}
         >
           <h1 className="text-center text-3xl text-[#0143BE] font-bold flex gap-2">
-            DocSlot{" "}
+            DocSlot
             <img
               src="https://rukminim2.flixcart.com/image/850/1000/xif0q/wall-decoration/j/s/d/doctor-logo-1-doctor-1-6x5in-doctor-logo-decalbazaar-original-imagpnchqbfc3jf2.jpeg?q=90&crop=false"
-              alt=""
+              alt="DocSlot logo"
               className="w-[50px] h-[50px]"
             />
           </h1>
@@ -92,14 +99,14 @@ const Register = () => {
           <div className="flex gap-6 justify-center">
             <Link to="/Login">
               <button
-                type="button" // Use type="button" for navigation button
+                type="button"
                 className="bg-[#0143BE] p-2 rounded-md text-white text-lg font-bold"
               >
                 Login
               </button>
             </Link>
             <button
-              type="submit" // Submit button
+              type="submit"
               className="bg-[#0143BE] p-2 rounded-md text-white text-lg font-bold"
             >
               Register

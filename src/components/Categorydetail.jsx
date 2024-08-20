@@ -118,8 +118,8 @@ function CategoryDetail() {
       {category ? (
         <>
           {/* Category Details */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex-shrink-0">{category.icon}</div>
+          <div className="flex items-center flex-wrap justify-between mb-8">
+            <div className="flex shrink-0 justify-center">{category.icon}</div>
             <div className="ml-8">
               <h1 className="text-4xl font-extrabold text-blue-800 mb-4">
                 {category.name}

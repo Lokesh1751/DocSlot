@@ -53,8 +53,8 @@ function DoctorInfo() {
             alt={doctor.name}
             className="w-[500px] h-[500px]  rounded-l-lg"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-30"></div>
-          <h1 className="absolute bottom-4 left-4 text-2xl text-white font-bold drop-shadow-md">
+          <div className="absolute w-auto h-[500px] inset-0 bg-gradient-to-b from-transparent to-black opacity-30"></div>
+          <h1 className="absolute bottom-0 left-4 text-2xl text-white font-bold drop-shadow-md">
             {doctor.name}
           </h1>
         </div>

@@ -9,6 +9,7 @@ import AllDoctors from "./components/AllDoctors";
 import DoctorInfo from "./components/DoctorInfo";
 import Appointment from "./components/Appointment";
 import Categorydetail from "./components/Categorydetail";
+import Profile from "./components/Profile";
 function App() {
   return (
     <div>
@@ -22,6 +23,7 @@ function App() {
           <Route path="/docinfo/:id" element={<DoctorInfo />} />
           <Route path="/categoryinfo/:name" element={<Categorydetail />} />
           <Route path="/appointment" element={<Appointment />} />
+          <Route path="/profile/:email" element={<Profile />} />
         </Routes>
         <Footer />
       </BrowserRouter>

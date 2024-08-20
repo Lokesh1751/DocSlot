@@ -7,9 +7,17 @@ import {
   FaUserMd,
   FaCalendarAlt,
 } from "react-icons/fa";
-import { FIRESTORE_DB } from "../pages/firebase.config";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { FIRESTORE_DB, FIREBASE_AUTH } from "../pages/firebase.config";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const categories = [
   { id: 1, name: "Cardiology" },
@@ -28,6 +36,13 @@ const Appointment = () => {
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
   const [loading, setLoading] = useState(true);
+  const [user] = useAuthState(FIREBASE_AUTH); // Get the logged-in user
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    date: "",
+  });
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -39,9 +54,6 @@ const Appointment = () => {
             where("category", "==", selectedService.toLowerCase())
           );
 
-          // Logging the query
-          console.log(`Fetching doctors for category: ${selectedService}`);
-
           const querySnapshot = await getDocs(q);
 
           if (!querySnapshot.empty) {
@@ -49,12 +61,8 @@ const Appointment = () => {
               id: doc.id,
               ...doc.data(),
             }));
-
-            // Logging fetched doctors
-            console.log("Fetched Doctors: ", fetchedDoctors);
             setDoctors(fetchedDoctors);
           } else {
-            console.log("No doctors found for the selected category.");
             setDoctors([]);
           }
         } catch (error) {
@@ -75,6 +83,59 @@ const Appointment = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!user) {
+      alert("User not logged in");
+      return;
+    }
+
+    try {
+      // Fetch the logged-in user's document from Firestore
+      const userDocRef = collection(FIRESTORE_DB, "docslot_users");
+      const q = query(userDocRef, where("email", "==", user.email));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        const userDoc = querySnapshot.docs[0]; // Get the first matching document
+
+        // Add the appointment data to the "appointments" array in the user document
+        const appointment = {
+          ...formData,
+          selectedService,
+          selectedDoctor,
+          approved: false,
+          createdAt: new Date(),
+        };
+
+        const userRef = doc(FIRESTORE_DB, "docslot_users", userDoc.id);
+        await updateDoc(userRef, {
+          appointments: [...(userDoc.data().appointments || []), appointment],
+        });
+
+        alert("Appointment added successfully:", appointment);
+        setFormData(
+          (formData.name = ""),
+          (formData.email = ""),
+          (formData.phone = ""),
+          (formData.date = "")
+        );
+      } else {
+        console.log("No user found with this email.");
+      }
+    } catch (error) {
+      console.error("Error adding appointment: ", error);
+    }
+  };
 
   if (loading) {
     return (
@@ -103,7 +164,7 @@ const Appointment = () => {
         <p className="text-gray-600 font-bold mb-6">
           We will confirm your appointment within 2 hours
         </p>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 xl:gap-16">
             {/* Name Field */}
             <div className="flex gap-3 items-center">
@@ -118,6 +179,8 @@ const Appointment = () => {
                   name="name"
                   className="w-full border-b-2 border-[#0143BE] p-2 focus:outline-none"
                   placeholder="Enter your name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -135,6 +198,8 @@ const Appointment = () => {
                   name="email"
                   className="w-full border-b-2 border-[#0143BE] p-2 focus:outline-none"
                   placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -152,6 +217,8 @@ const Appointment = () => {
                   name="phone"
                   className="w-full border-b-2 border-[#0143BE] p-2 focus:outline-none"
                   placeholder="Enter your phone number"
+                  value={formData.phone}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -182,7 +249,7 @@ const Appointment = () => {
               </div>
             </div>
 
-            {/* Doctors Dropdown with details */}
+            {/* Doctors Dropdown */}
             <div className="flex gap-3 items-center">
               <FaUserMd size={40} className="text-[#0143BE]" />
               <div className="flex-1">
@@ -223,6 +290,8 @@ const Appointment = () => {
                   id="date"
                   name="date"
                   className="w-full border-b-2 border-[#0143BE] p-2 focus:outline-none"
+                  value={formData.date}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>

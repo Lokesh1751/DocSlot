@@ -3,10 +3,10 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { FIREBASE_AUTH } from "../pages/firebase.config";
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [profilevisible, setProfilevisible] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
@@ -70,16 +70,34 @@ const Navbar = () => {
                 </p>
               </Link>
             ) : (
-              <p
-                onClick={handleLogout}
-                className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all"
-              >
-                Logout
-              </p>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center relative">
+                  <div className="flex flex-col">
+                    <p
+                      className="text-lg font-bold bg-[#0E02F5] text-white rounded-full px-4 py-2 cursor-pointer transition-all"
+                      onClick={() => setProfilevisible(!profilevisible)}
+                    >
+                      {user.email.slice(0, 1).toUpperCase()}
+                    </p>
+                    {profilevisible && (
+                      <Link
+                        className="bg-gray-200 p-2 rounded-lg absolute top-14 w-[100px]  cursor-pointer text-center"
+                        to={`/profile/${user.email}`}
+                        onClick={() => setProfilevisible(!profilevisible)}
+                      >
+                        My Profile
+                      </Link>
+                    )}
+                  </div>
+                </div>
+                <p
+                  onClick={handleLogout}
+                  className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all"
+                >
+                  Logout
+                </p>
+              </div>
             )}
-            <p className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all">
-              Start Free
-            </p>
           </div>
         </div>
 
@@ -137,9 +155,12 @@ const Navbar = () => {
             </Link>
           ) : (
             <div className="flex flex-col items-center gap-2">
-              <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
-                {user.email}
-              </p>
+              <div>
+                <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
+                  {user.email}
+                </p>
+                <p>My Profile</p>
+              </div>
               <p
                 onClick={handleLogout}
                 className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all"
@@ -148,9 +169,6 @@ const Navbar = () => {
               </p>
             </div>
           )}
-          <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
-            Start Free
-          </p>
         </div>
       </div>
     </div>

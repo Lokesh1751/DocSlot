@@ -7,7 +7,6 @@ import Services from "../components/Services";
 import Facilities from "../components/Facilities";
 import Doctors from "../components/Doctors";
 import Experience from "../components/Experience";
-
 const HomePage = () => {
   return (
     <div>

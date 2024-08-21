@@ -155,12 +155,14 @@ const Navbar = () => {
             </Link>
           ) : (
             <div className="flex flex-col items-center gap-2">
-              <div>
-                <p className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all">
-                  {user.email}
-                </p>
-                <p>My Profile</p>
-              </div>
+              <Link
+                className="bg-gray-200 p-2 rounded-lg w-[100px]  cursor-pointer text-center"
+                to={`/profile/${user.email}`}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                My Profile
+              </Link>
+
               <p
                 onClick={handleLogout}
                 className="text-lg font-bold text-white bg-[#0E02F5] p-2 rounded-md cursor-pointer hover:bg-[#0c02d5] transition-all"

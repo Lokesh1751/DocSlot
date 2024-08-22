@@ -71,7 +71,7 @@ const Navbar = () => {
   console.log(doctors);
   return (
     <div className="relative">
-      <div className="flex p-4 shadow-lg justify-between items-center">
+      <div className="flex p-4 shadow-lg  justify-between items-center">
         <div className="flex flex-col xl:items-center gap-2 xl:gap-14 xl:flex-row">
           <Link to="/" className="cursor-pointer">
             <div className="flex gap-2 items-center">
@@ -96,7 +96,7 @@ const Navbar = () => {
 
         <div className="hidden xl:flex gap-20">
           {/* Navigation Links */}
-          <div className="flex gap-10">
+          <div className="flex items-center gap-10">
             <Link
               to="/alldoctors"
               className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer"

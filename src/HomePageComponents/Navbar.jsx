@@ -5,6 +5,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "../pages/firebase.config";
 import { collection, getDocs } from "firebase/firestore";
 import { useDebounce } from "../debounce/Debounce";
+import { MdClose } from "react-icons/md";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -83,7 +84,7 @@ const Navbar = () => {
               <h1 className="text-3xl">DocSlot</h1>
             </div>
           </Link>
-          <div>
+          <div className="relative">
             <input
               type="text"
               placeholder="Search Doctor or Category..."
@@ -91,6 +92,14 @@ const Navbar = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+            {searchTerm && (
+              <MdClose
+                className="absolute top-4 right-5 cursor-pointer hidden xl:flex"
+                size={20}
+                color="gray"
+                onClick={() => setSearchTerm("")}
+              />
+            )}
           </div>
         </div>
 
@@ -230,7 +239,7 @@ const Navbar = () => {
 
       {/* Show filtered doctors */}
       {searchTerm && (
-        <div className="absolute bg-white shadow-lg p-4 rounded-lg z-20 w-full mt-2">
+        <div className="absolute bg-white shadow-lg p-4  z-20 w-full">
           {filteredDoctors.length > 0 ? (
             filteredDoctors.map((doctor) => (
               <Link to={`/docinfo/${doctor.id}`} key={doctor.id}>

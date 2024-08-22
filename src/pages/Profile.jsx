@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { FIRESTORE_DB, FIREBASE_AUTH } from "../pages/firebase.config";
+import { FIRESTORE_DB, FIREBASE_AUTH } from "./firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
 import { ClipLoader } from "react-spinners";
 import {
@@ -55,7 +55,7 @@ function Profile() {
           </span>
         </h1>
         {user ? (
-          <div className="bg-white p-6 shadow-lg rounded-lg">
+          <div className="bg-white p-6 w-full shadow-lg rounded-lg">
             <h2 className="text-2xl font-semibold mb-4 text-blue-800 flex items-center">
               <FaCalendarAlt className="mr-2" />
               Your Appointments
@@ -66,11 +66,12 @@ function Profile() {
               </div>
             ) : (
               <ul className="space-y-6">
-                {appointments.length === 0 ? (
-                  <p className="text-gray-600 text-center">
+                {!appointments[0].appointments ? (
+                  <p className="text-blue-600 text-center">
                     No appointments found.
                   </p>
                 ) : (
+                  appointments[0].appointments &&
                   appointments[0].appointments.map((appointment, index) => (
                     <li
                       key={index}

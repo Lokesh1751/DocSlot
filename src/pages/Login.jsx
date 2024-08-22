@@ -31,7 +31,7 @@ const Login = () => {
     >
       <form
         action=""
-        className="flex flex-col gap-4  bg-gradient-to-t from-[#AECAD4] to-white   p-14 rounded-lg"
+        className="flex flex-col gap-4  bg-white  p-14 rounded-lg"
       >
         <h1 className="text-center text-3xl text-[#0143BE] font-bold flex gap-2">
           DocSlot{" "}
@@ -41,7 +41,9 @@ const Login = () => {
             className="w-[50px] h-[50px]"
           />
         </h1>
-        <h1 className="text-center text-2xl font-bold text-[#0143BE]">Login</h1>
+        <h1 className="text-center text-2xl   font-bold text-[#0143BE]">
+          Login
+        </h1>
         <div className="flex flex-col gap-1">
           <label htmlFor="email" className="text-xl font-bold">
             Email
@@ -49,7 +51,7 @@ const Login = () => {
           <input
             type="text"
             id="email"
-            className="p-2 rounded-lg"
+            className="p-2 rounded-lg border-blue-700 border-2"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -60,7 +62,7 @@ const Login = () => {
           <input
             type="password"
             id="password"
-            className="p-2 rounded-lg"
+            className="p-2 rounded-lg border-blue-700 border-2"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>

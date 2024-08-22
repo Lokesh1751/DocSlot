@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FIRESTORE_DB } from "../pages/firebase.config";
+import { FIRESTORE_DB } from "./firebase.config";
 import { getDoc, doc } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
 import { Link } from "react-router-dom";

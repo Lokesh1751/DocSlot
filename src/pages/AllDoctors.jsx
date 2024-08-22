@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FIRESTORE_DB } from "../pages/firebase.config";
+import { FIRESTORE_DB } from "./firebase.config";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
@@ -53,7 +53,7 @@ function AllDoctors() {
         <input
           type="text"
           placeholder="Search Doctor..."
-          className="p-4 border border-black rounded-lg"
+          className="p-2 border border-black rounded-lg"
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>

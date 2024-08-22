@@ -46,7 +46,7 @@ const Register = () => {
         }}
       >
         <form
-          className="flex flex-col gap-4 bg-gradient-to-t from-[#AECAD4] to-white max-w-xl p-14 rounded-lg"
+          className="flex flex-col gap-4 bg-white max-w-xl p-14 rounded-lg"
           onSubmit={addauth}
         >
           <h1 className="text-center text-3xl text-[#0143BE] font-bold flex gap-2">
@@ -67,7 +67,7 @@ const Register = () => {
             <input
               type="email"
               id="email"
-              className="p-2 rounded-lg"
+              className="p-2 rounded-lg border-blue-700 border-2"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -79,7 +79,7 @@ const Register = () => {
             <input
               type="password"
               id="password"
-              className="p-2 rounded-lg"
+              className="p-2 rounded-lg border-blue-700 border-2"
               value={pass}
               onChange={(e) => setPass(e.target.value)}
             />
@@ -91,7 +91,7 @@ const Register = () => {
             <input
               type="password"
               id="repeat-password"
-              className="p-2 rounded-lg"
+              className="p-2 rounded-lg border-blue-700 border-2"
               value={rPass}
               onChange={(e) => setrPass(e.target.value)}
             />

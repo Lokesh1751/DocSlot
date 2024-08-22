@@ -7,7 +7,7 @@ import {
   FaUserMd,
   FaCalendarAlt,
 } from "react-icons/fa";
-import { FIRESTORE_DB, FIREBASE_AUTH } from "../pages/firebase.config";
+import { FIRESTORE_DB, FIREBASE_AUTH } from "./firebase.config";
 import {
   collection,
   query,

@@ -80,38 +80,15 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div>
-          <h2 className="text-xl font-bold mb-4 text-center">Feedback</h2>
-          <form className="space-y-4">
-            <div>
-              <label htmlFor="name" className="sr-only">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                placeholder="Name"
-                className="w-full p-2 rounded-md bg-blue-100 text-blue-900 outline-none"
-              />
-            </div>
-            <div>
-              <label htmlFor="phone" className="sr-only">
-                Phone
-              </label>
-              <input
-                type="text"
-                id="phone"
-                placeholder="Phone"
-                className="w-full p-2 rounded-md bg-blue-100 text-blue-900 outline-none"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full p-2 rounded-md bg-white text-[#0143BE] font-bold hover:bg-gray-200 transition"
-            >
-              SUBMIT
-            </button>
-          </form>
+        <div className="flex flex-col">
+          <h1 className="text-white font-bold text-4xl">DocSlot</h1>
+          <div className="bg-white p-6 rounded-full h-full w-full flex items-center justify-center">
+            <img
+              src="https://rukminim2.flixcart.com/image/850/1000/xif0q/wall-decoration/j/s/d/doctor-logo-1-doctor-1-6x5in-doctor-logo-decalbazaar-original-imagpnchqbfc3jf2.jpeg?q=90&crop=false"
+              alt="DocSlot Logo"
+              className="w-[60px] h-[60px]"
+            />
+          </div>
         </div>
       </div>
     </div>

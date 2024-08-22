@@ -72,7 +72,7 @@ const Navbar = () => {
   return (
     <div className="relative">
       <div className="flex p-4 shadow-lg justify-between items-center">
-        <div className="flex flex-col xl:items-center xl:gap-14 xl:flex-row">
+        <div className="flex flex-col xl:items-center gap-2 xl:gap-14 xl:flex-row">
           <Link to="/" className="cursor-pointer">
             <div className="flex gap-2 items-center">
               <img
@@ -87,37 +87,34 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search Doctor or Category..."
-              className="p-3 rounded-lg border-2 border-gray-200 ring-blue-800 w-full sm:w-[300px] xl:w-[400px]"
+              className="p-3 rounded-full border-2 border-gray-200 ring-blue-800 w-full sm:w-[300px] xl:w-[400px]"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
 
-        <div className="hidden xl:flex gap-20 items-center">
+        <div className="hidden xl:flex gap-20">
           {/* Navigation Links */}
           <div className="flex gap-10">
-            <p className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer">
-              About Us
-            </p>
-            <p className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer">
-              Contact Us
-            </p>
             <Link
               to="/alldoctors"
               className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer"
             >
               Doctors
             </Link>
-            <p className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer">
+            <Link
+              className="text-lg font-bold hover:text-[#0143BE] transition-all cursor-pointer"
+              to="/services"
+            >
               Services
-            </p>
+            </Link>
           </div>
 
           {/* Profile and Logout */}
           <div className="flex gap-6 items-center">
             {!user ? (
-              <Link to="/Login">
+              <Link to="/Login" className="flex justify-center">
                 <p className="text-lg font-bold text-[#0143BE] cursor-pointer transition-all">
                   Login | SignUp
                 </p>
@@ -189,12 +186,13 @@ const Navbar = () => {
           >
             Contact Us
           </p>
-          <p
+          <Link
             className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer"
             onClick={() => setIsOpen(false)}
+            to="/alldoctors"
           >
             Doctors
-          </p>
+          </Link>
           <p
             className="text-lg font-bold hover:text-[#0E02F5] transition-all cursor-pointer"
             onClick={() => setIsOpen(false)}

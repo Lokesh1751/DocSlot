@@ -10,6 +10,7 @@ import DoctorInfo from "./pages/DoctorInfo";
 import Appointment from "./pages/Appointment";
 import Categorydetail from "./pages/Categorydetail";
 import Profile from "./pages/Profile";
+import Services from "./HomePageComponents/Services";
 import PreNavbar from "./HomePageComponents/PreNavbar";
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/categoryinfo/:name" element={<Categorydetail />} />
           <Route path="/appointment" element={<Appointment />} />
           <Route path="/profile/:email" element={<Profile />} />
+          <Route path="/services" element={<Services />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -98,7 +98,16 @@ const Appointment = () => {
       alert("User not logged in");
       return;
     }
+    const selectedDate = new Date(formData.date);
+    const today = new Date();
 
+    // Reset time to ensure only the date is compared
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+      alert("Selected date cannot be in the past.");
+      return;
+    }
     try {
       // Fetch the logged-in user's document from Firestore
       const userDocRef = collection(FIRESTORE_DB, "docslot_users");
@@ -122,7 +131,7 @@ const Appointment = () => {
           appointments: [...(userDoc.data().appointments || []), appointment],
         });
 
-        alert("Appointment added successfully:", appointment);
+        alert("Appointment requested successfully!");
         setFormData(
           (formData.name = ""),
           (formData.email = ""),
@@ -136,7 +145,14 @@ const Appointment = () => {
       console.error("Error adding appointment: ", error);
     }
   };
+  const today = new Date();
 
+  // Format the date (optional)
+  const formattedDate = today.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   if (loading) {
     return (
       <div

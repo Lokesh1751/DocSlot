@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { FIREBASE_AUTH } from "./firebase.config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,10 +13,16 @@ const Login = () => {
     event.preventDefault();
     try {
       await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
-      alert("Logged In Successfully!!");
+      toast("Logged In Successfully!!", {
+        style: { backgroundColor: "#0143BE", color: "#fff" },
+        autoClose: 1300,
+      });
       navigate("/");
     } catch (error) {
-      alert("Wrong Credentials!!");
+      toast("Wrong Credentials!!", {
+        style: { backgroundColor: "#0143BE", color: "#fff" },
+        autoClose: 1300,
+      });
       console.error("Error signing in:", error.message);
     }
   };
@@ -29,6 +37,7 @@ const Login = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
+      <ToastContainer />
       <form
         action=""
         className="flex flex-col gap-4  bg-white  p-14 rounded-lg"

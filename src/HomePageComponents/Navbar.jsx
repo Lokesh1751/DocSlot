@@ -6,6 +6,8 @@ import { FIREBASE_AUTH, FIRESTORE_DB } from "../pages/firebase.config";
 import { collection, getDocs } from "firebase/firestore";
 import { useDebounce } from "../debounce/Debounce";
 import { MdClose } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -44,7 +46,10 @@ const Navbar = () => {
     try {
       await signOut(FIREBASE_AUTH);
       setUser(null);
-      alert("Logged out successfully!");
+      toast("Logged Out Successfully!!", {
+        style: { backgroundColor: "#0143BE", color: "#fff" },
+        autoClose: 1300,
+      });
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -72,6 +77,7 @@ const Navbar = () => {
   console.log(doctors);
   return (
     <div className="relative">
+      <ToastContainer />
       <div className="flex p-4 shadow-lg  justify-between items-center">
         <div className="flex flex-col xl:items-center gap-2 xl:gap-14 xl:flex-row">
           <Link to="/" className="cursor-pointer">
@@ -145,7 +151,7 @@ const Navbar = () => {
                     </p>
                     {profileVisible && (
                       <Link
-                        className="bg-gray-200 p-2 rounded-lg absolute top-14 w-[100px] cursor-pointer text-center"
+                        className="bg-gray-100 p-2 rounded-lg text-[#0143BE] right-5 font-bold absolute top-14 w-[100px] cursor-pointer text-center"
                         to={`/profile/${user.email}`}
                         onClick={() => setProfileVisible(!profileVisible)}
                       >

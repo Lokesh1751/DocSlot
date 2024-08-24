@@ -13,8 +13,8 @@ function MidHeaderSection() {
             />{" "}
             Emergency Call
           </p>
-          <p className="text-sm sm:text-base">+946687876</p>
-          <p className="text-sm sm:text-base">+955465446</p>
+          <p className="text-sm sm:text-base">+9466878760</p>
+          <p className="text-sm sm:text-base">+9554654463</p>
         </div>
         <div className="text-white flex flex-col items-center gap-2 sm:gap-4 xl:flex-col">
           <p className="flex gap-3 text-lg sm:text-xl items-center">

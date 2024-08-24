@@ -18,7 +18,7 @@ const Experience = () => {
         <div className="flex flex-col items-center">
           <FaUserMd size={50} className="text-[#0143BE] " />
           <p className="text-4xl font-bold text-[#0143BE] ">750+</p>
-          <p className="text-lg font-bold">Doctors& Nurse</p>
+          <p className="text-lg font-bold">Doctors</p>
         </div>
         <div className="flex flex-col items-center">
           <FaTrophy size={50} className="text-[#0143BE] " />

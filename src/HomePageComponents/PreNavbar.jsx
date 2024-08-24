@@ -15,7 +15,7 @@ const PreNavbar = () => {
       <div className="flex gap-5 mt-2  flex-wrap">
         <div className="flex gap-2">
           <FaPhone size={14} />
-          <p>Call +946687876</p>
+          <p>Call +9466878760</p>
         </div>
         <div className="flex gap-2">
           <FaEnvelope size={14} />

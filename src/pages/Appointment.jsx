@@ -18,6 +18,8 @@ import {
 } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const categories = [
   { id: 1, name: "Cardiology" },
@@ -95,7 +97,9 @@ const Appointment = () => {
     e.preventDefault();
 
     if (!user) {
-      alert("User not logged in");
+      toast("User not logged in", {
+        style: { backgroundColor: "#0143BE", color: "#fff" },
+      });
       return;
     }
     const selectedDate = new Date(formData.date);
@@ -105,7 +109,9 @@ const Appointment = () => {
     today.setHours(0, 0, 0, 0);
 
     if (selectedDate < today) {
-      alert("Selected date cannot be in the past.");
+      toast("Selected date cannot be in the past.", {
+        style: { backgroundColor: "#0143BE", color: "#fff" },
+      });
       return;
     }
     try {
@@ -131,28 +137,27 @@ const Appointment = () => {
           appointments: [...(userDoc.data().appointments || []), appointment],
         });
 
-        alert("Appointment requested successfully!");
-        setFormData(
-          (formData.name = ""),
-          (formData.email = ""),
-          (formData.phone = ""),
-          (formData.date = "")
-        );
+        toast("Appointment requested successfully!", {
+          style: { backgroundColor: "#0143BE", color: "#fff" },
+        });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          date: "",
+        });
       } else {
-        console.log("No user found with this email.");
+        toast("No user found with this email.", {
+          style: { backgroundColor: "#0143BE", color: "#fff" },
+        });
       }
     } catch (error) {
-      console.error("Error adding appointment: ", error);
+      toast("Error adding appointment: " + error.message);
     }
   };
+
   const today = new Date();
 
-  // Format the date (optional)
-  const formattedDate = today.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
   if (loading) {
     return (
       <div
@@ -173,6 +178,7 @@ const Appointment = () => {
         backgroundImage: `linear-gradient(rgb(0,0,0,0.7), rgb(0,0,0,0.7)), url(https://i0.wp.com/urologyspecialistsofohio.com/wp-content/uploads/2018/03/Section-4-BG-Surgery-and-Procedures-at-Springfield-Urology.jpg?ssl=1)`,
       }}
     >
+      <ToastContainer />
       <div className="bg-white rounded-lg m-4 md:m-8 p-6 md:p-8 max-w-xl md:max-w-5xl w-full shadow-lg">
         <h1 className="text-[#0143BE] text-2xl md:text-3xl font-bold mb-4">
           Book your appointment
@@ -278,16 +284,18 @@ const Appointment = () => {
                   className="w-full border-b-2 border-[#0143BE] p-2 focus:outline-none"
                   value={selectedDoctor}
                   onChange={(e) => setSelectedDoctor(e.target.value)}
-                  disabled={doctors.length === 0}
+                  disabled={!selectedService || doctors.length === 0}
                 >
                   <option value="" disabled>
-                    {selectedService === ""
-                      ? "Select a service first"
-                      : "Select a doctor"}
+                    {selectedService
+                      ? doctors.length === 0
+                        ? "No doctors available"
+                        : "Select a doctor"
+                      : "Select a service first"}
                   </option>
                   {doctors.map((doctor) => (
                     <option key={doctor.id} value={doctor.name}>
-                      {doctor.name} - {doctor.specialty}
+                      {doctor.name}
                     </option>
                   ))}
                 </select>
@@ -308,14 +316,16 @@ const Appointment = () => {
                   className="w-full border-b-2 border-[#0143BE] p-2 focus:outline-none"
                   value={formData.date}
                   onChange={handleInputChange}
+                  min={today.toISOString().split("T")[0]}
                 />
               </div>
             </div>
           </div>
-          <div className="mt-6 text-center">
+
+          <div className="mt-6 flex justify-center">
             <button
               type="submit"
-              className="bg-[#0143BE] text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition"
+              className="bg-[#0143BE] text-white py-2 px-8 rounded-lg hover:bg-[#012e86] transition-colors"
             >
               Submit
             </button>

@@ -10,7 +10,9 @@ import {
   FaCheckCircle,
   FaClock,
   FaTimesCircle,
+  FaDownload,
 } from "react-icons/fa";
+import jsPDF from "jspdf";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -45,8 +47,68 @@ function Profile() {
     }
   };
 
+  const generatePDF = (appointment) => {
+    const imgUrl =
+      "https://rukminim2.flixcart.com/image/850/1000/xif0q/wall-decoration/j/s/d/doctor-logo-1-doctor-1-6x5in-doctor-logo-decalbazaar-original-imagpnchqbfc3jf2.jpeg?q=90&crop=false";
+    const doc = new jsPDF();
+
+    // Set up custom font, size, and colors
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(24);
+    doc.setTextColor(0, 76, 192); // DocSlot's Blue color
+
+    // Add DocSlot Logo and Text (centered)
+    doc.addImage(imgUrl, "JPEG", 10, 10, 40, 40); // Logo
+    doc.text("DocSlot", 55, 35); // DocSlot text beside logo
+
+    // Add title with larger font size
+    doc.setFontSize(28);
+    doc.text("Appointment Slip", doc.internal.pageSize.getWidth() / 2, 60, {
+      align: "center",
+    });
+
+    // Add a line under the title
+    doc.setDrawColor(0, 76, 192); // Blue
+    doc.line(20, 65, doc.internal.pageSize.getWidth() - 20, 65); // Horizontal line
+
+    // Reset font and size for the rest of the text
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "normal");
+
+    // Appointment details with better spacing and alignment
+    const marginLeft = 20;
+    const lineHeight = 10;
+    let yPosition = 80;
+
+    doc.text(`Patient: ${appointment.name}`, marginLeft, yPosition);
+    yPosition += lineHeight;
+    doc.text(`Doctor: ${appointment.selectedDoctor}`, marginLeft, yPosition);
+    yPosition += lineHeight;
+    doc.text(`Service: ${appointment.selectedService}`, marginLeft, yPosition);
+    yPosition += lineHeight;
+    doc.text(`Date: ${appointment.date}`, marginLeft, yPosition);
+    yPosition += lineHeight;
+    doc.text(
+      `Status: ${appointment.approved ? "Approved" : "Pending"}`,
+      marginLeft,
+      yPosition
+    );
+
+    // Adding a footer with contact information or branding
+    doc.setFontSize(12);
+    doc.setTextColor(100); // Grey
+    doc.text(
+      "Thank you for choosing DocSlot. For any inquiries, visit www.docslot.com",
+      marginLeft,
+      doc.internal.pageSize.getHeight() - 20
+    );
+
+    // Save the PDF
+    doc.save("appointment_slip.pdf");
+  };
+
   return (
-    <div className="p-6  min-h-screen">
+    <div className="p-6 min-h-screen">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-blue-800 mb-6 text-center">
           Welcome,{" "}
@@ -66,12 +128,11 @@ function Profile() {
               </div>
             ) : (
               <ul className="space-y-6">
-                {!appointments[0].appointments ? (
+                {!appointments[0]?.appointments ? (
                   <p className="text-blue-600 text-center">
                     No appointments found.
                   </p>
                 ) : (
-                  appointments[0].appointments &&
                   appointments[0].appointments.map((appointment, index) => (
                     <li
                       key={index}
@@ -108,6 +169,17 @@ function Profile() {
                           <strong>Service:</strong>{" "}
                           {appointment.selectedService}
                         </div>
+                        {appointment.approved && (
+                          <button
+                            onClick={() => generatePDF(appointment)}
+                            className="mt-4 flex items-center  rounded-full md:mt-0 md:ml-4 p-2 "
+                          >
+                            <FaDownload
+                              size={20}
+                              className="  text-blue-800 font-bold"
+                            />
+                          </button>
+                        )}
                       </div>
                     </li>
                   ))

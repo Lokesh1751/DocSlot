@@ -18,6 +18,7 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, async (user) => {
@@ -170,15 +171,25 @@ function Profile() {
                           {appointment.selectedService}
                         </div>
                         {appointment.approved && (
-                          <button
-                            onClick={() => generatePDF(appointment)}
-                            className="mt-4 flex items-center  rounded-full md:mt-0 md:ml-4 p-2 "
+                          <div
+                            onMouseEnter={() => setHoveredIndex(index)}
+                            onMouseLeave={() => setHoveredIndex(null)}
                           >
-                            <FaDownload
-                              size={20}
-                              className="  text-blue-800 font-bold"
-                            />
-                          </button>
+                            <button
+                              onClick={() => generatePDF(appointment)}
+                              className="mt-4 flex items-center rounded-full md:mt-0 md:ml-4 p-2"
+                            >
+                              <FaDownload
+                                size={20}
+                                className="text-blue-800 font-bold"
+                              />
+                            </button>
+                            {hoveredIndex === index && (
+                              <div className="absolute bg-gray-200 text-gray-700 p-2 rounded shadow-lg mt-2">
+                                Download Appointment Slip
+                              </div>
+                            )}
+                          </div>
                         )}
                       </div>
                     </li>

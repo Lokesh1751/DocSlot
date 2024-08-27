@@ -57,11 +57,11 @@ function AllDoctors() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 cursor-pointer">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12  cursor-pointer">
         {filteredDoctors.map((doctor) => (
           <Link
             key={doctor.id}
-            className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center"
+            className="bg-white p-10 rounded-lg shadow-md flex flex-col items-center"
             to={`/docinfo/${doctor.id}`}
           >
             <img

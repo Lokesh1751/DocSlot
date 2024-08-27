@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaBars, FaTimes, FaUser } from "react-icons/fa";
+import { FaBars, FaTimes, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "../pages/firebase.config";
@@ -145,13 +145,15 @@ const Navbar = () => {
                     />
                     <p
                       onClick={handleLogout}
-                      className="text-xl  mt-3 flex items-center font-bold text-[#0143BE] cursor-pointer transition-all"
+                      className="text-xl flex gap-2  mt-3 
+                       items-center font-bold text-[#0143BE] cursor-pointer transition-all"
                     >
-                      Logout
+                      Logout <FaSignOutAlt />
                     </p>
+
                     {profileVisible && (
                       <Link
-                        className="bg-gray-100 p-2 rounded-lg text-[#0143BE] right-5 font-bold absolute top-14 w-[100px] cursor-pointer text-center"
+                        className="bg-gray-100 p-2 rounded-lg text-[#0143BE] right-12 font-bold absolute top-14 w-[100px] cursor-pointer text-center"
                         to={`/profile/${user.email}`}
                         onClick={() => setProfileVisible(!profileVisible)}
                       >
@@ -224,7 +226,7 @@ const Navbar = () => {
           ) : (
             <div className="flex flex-col items-center gap-2">
               <Link
-                className="bg-gray-200 p-2 rounded-lg w-[100px] cursor-pointer text-center"
+                className="text-blue-800 font-bold p-2 rounded-lg w-[100px] cursor-pointer text-center"
                 to={`/profile/${user.email}`}
                 onClick={() => setIsOpen(!isOpen)}
               >

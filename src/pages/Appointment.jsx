@@ -6,6 +6,7 @@ import {
   FaTasks,
   FaUserMd,
   FaCalendarAlt,
+  FaClock,
 } from "react-icons/fa";
 import { FIRESTORE_DB, FIREBASE_AUTH } from "./firebase.config";
 import {
@@ -44,6 +45,7 @@ const Appointment = () => {
     email: "",
     phone: "",
     date: "",
+    time: "",
   });
 
   useEffect(() => {
@@ -102,18 +104,16 @@ const Appointment = () => {
       });
       return;
     }
-    const selectedDate = new Date(formData.date);
+    const selectedDate = new Date(`${formData.date}T${formData.time}`);
     const today = new Date();
 
-    // Reset time to ensure only the date is compared
-    today.setHours(0, 0, 0, 0);
-
     if (selectedDate < today) {
-      toast("Selected date cannot be in the past.", {
+      toast("Selected date and time cannot be in the past.", {
         style: { backgroundColor: "#0143BE", color: "#fff" },
       });
       return;
     }
+
     try {
       // Fetch the logged-in user's document from Firestore
       const userDocRef = collection(FIRESTORE_DB, "docslot_users");
@@ -145,6 +145,7 @@ const Appointment = () => {
           email: "",
           phone: "",
           date: "",
+          time: "",
         });
       } else {
         toast("No user found with this email.", {
@@ -245,57 +246,55 @@ const Appointment = () => {
               </div>
             </div>
 
-            {/* Services Dropdown */}
+            {/* Service Selection */}
             <div className="flex gap-3 items-center">
               <FaTasks size={40} className="text-[#0143BE]" />
               <div className="flex-1">
-                <label htmlFor="services" className="block text-gray-700 mb-2">
-                  Services
+                <label
+                  htmlFor="selectedService"
+                  className="block text-gray-700 mb-2"
+                >
+                  Select Service
                 </label>
                 <select
-                  id="services"
-                  name="services"
+                  id="selectedService"
+                  name="selectedService"
                   className="w-full border-b-2 border-[#0143BE] p-2 focus:outline-none"
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
                 >
-                  <option value="" disabled>
-                    Select a service
-                  </option>
+                  <option value="">Select a service</option>
                   {categories.map((category) => (
                     <option key={category.id} value={category.name}>
-                      {category.name}
+                      {category.name} 
                     </option>
                   ))}
                 </select>
               </div>
             </div>
 
-            {/* Doctors Dropdown */}
+            {/* Doctor Selection */}
             <div className="flex gap-3 items-center">
               <FaUserMd size={40} className="text-[#0143BE]" />
               <div className="flex-1">
-                <label htmlFor="doctor" className="block text-gray-700 mb-2">
-                  Doctor
+                <label
+                  htmlFor="selectedDoctor"
+                  className="block text-gray-700 mb-2"
+                >
+                  Select Doctor
                 </label>
                 <select
-                  id="doctor"
-                  name="doctor"
+                  id="selectedDoctor"
+                  name="selectedDoctor"
                   className="w-full border-b-2 border-[#0143BE] p-2 focus:outline-none"
                   value={selectedDoctor}
                   onChange={(e) => setSelectedDoctor(e.target.value)}
-                  disabled={!selectedService || doctors.length === 0}
+                  disabled={!selectedService}
                 >
-                  <option value="" disabled>
-                    {selectedService
-                      ? doctors.length === 0
-                        ? "No doctors available"
-                        : "Select a doctor"
-                      : "Select a service first"}
-                  </option>
+                  <option value="">Select a doctor</option>
                   {doctors.map((doctor) => (
                     <option key={doctor.id} value={doctor.name}>
-                      {doctor.name}
+                      {doctor.name} - {doctor.specialty}
                     </option>
                   ))}
                 </select>
@@ -307,7 +306,7 @@ const Appointment = () => {
               <FaCalendarAlt size={40} className="text-[#0143BE]" />
               <div className="flex-1">
                 <label htmlFor="date" className="block text-gray-700 mb-2">
-                  Date
+                  Select Date
                 </label>
                 <input
                   type="date"
@@ -320,16 +319,32 @@ const Appointment = () => {
                 />
               </div>
             </div>
+
+            {/* Time Field */}
+            <div className="flex gap-3 items-center">
+              <FaClock size={40} className="text-[#0143BE]" />
+              <div className="flex-1">
+                <label htmlFor="time" className="block text-gray-700 mb-2">
+                  Select Time
+                </label>
+                <input
+                  type="time"
+                  id="time"
+                  name="time"
+                  className="w-full border-b-2 border-[#0143BE] p-2 focus:outline-none"
+                  value={formData.time}
+                  onChange={handleInputChange}
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="mt-6 flex justify-center">
-            <button
-              type="submit"
-              className="bg-[#0143BE] text-white py-2 px-8 rounded-lg hover:bg-[#012e86] transition-colors"
-            >
-              Submit
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="mt-6 w-full py-3 text-lg bg-[#0143BE] text-white rounded-lg hover:bg-blue-700 focus:outline-none"
+          >
+            Book Appointment
+          </button>
         </form>
       </div>
     </div>

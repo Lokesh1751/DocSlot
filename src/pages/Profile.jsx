@@ -11,8 +11,10 @@ import {
   FaClock,
   FaTimesCircle,
   FaDownload,
+  FaRegClock,
 } from "react-icons/fa";
 import jsPDF from "jspdf";
+import { format } from "date-fns";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -89,6 +91,20 @@ function Profile() {
     yPosition += lineHeight;
     doc.text(`Date: ${appointment.date}`, marginLeft, yPosition);
     yPosition += lineHeight;
+
+    // Highlight time in the PDF
+    doc.setFont("helvetica", "bold");
+    doc.text(
+      `Time: ${appointment.time} ${
+        appointment.time.split(":")[0] >= 12 ? "PM" : "AM"
+      }`,
+      marginLeft,
+      yPosition
+    );
+    yPosition += lineHeight;
+    doc.setFont("helvetica", "normal");
+
+    // Status
     doc.text(
       `Status: ${appointment.approved ? "Approved" : "Pending"}`,
       marginLeft,
@@ -145,8 +161,18 @@ function Profile() {
                             <FaUserMd className="mr-2" />
                             {appointment.name}
                           </p>
-                          <p className="text-gray-700">
-                            <strong>Date:</strong> {appointment.date}
+                          <div className="text-blue-800  flex items-center gap-2 font-extrabold text-xl my-2">
+                            <FaRegClock size={20} />
+                            {appointment.time.split(":")[0] >= 12
+                              ? appointment.time + " PM"
+                              : appointment.time + " AM"}
+                          </div>
+                          <p className="text-gray-700 text-lg font-bold">
+                            <strong>Date:</strong>{" "}
+                            {format(
+                              new Date(appointment.date),
+                              "MMMM do, yyyy"
+                            )}
                           </p>
                         </div>
                         <div className="flex flex-col space-y-2">
@@ -170,27 +196,26 @@ function Profile() {
                           <strong>Service:</strong>{" "}
                           {appointment.selectedService}
                         </div>
-                        {appointment.approved && (
-                          <div
-                            onMouseEnter={() => setHoveredIndex(index)}
-                            onMouseLeave={() => setHoveredIndex(null)}
+
+                        <div
+                          onMouseEnter={() => setHoveredIndex(index)}
+                          onMouseLeave={() => setHoveredIndex(null)}
+                        >
+                          <button
+                            onClick={() => generatePDF(appointment)}
+                            className="mt-4 flex items-center rounded-full md:mt-0 md:ml-4 p-2"
                           >
-                            <button
-                              onClick={() => generatePDF(appointment)}
-                              className="mt-4 flex items-center rounded-full md:mt-0 md:ml-4 p-2"
-                            >
-                              <FaDownload
-                                size={20}
-                                className="text-blue-800 font-bold"
-                              />
-                            </button>
-                            {hoveredIndex === index && (
-                              <div className="absolute bg-gray-200 text-gray-700 p-2 rounded shadow-lg mt-2">
-                                Download Appointment Slip
-                              </div>
-                            )}
-                          </div>
-                        )}
+                            <FaDownload
+                              size={20}
+                              className="text-blue-800 font-bold"
+                            />
+                          </button>
+                          {hoveredIndex === index && (
+                            <div className="absolute bg-gray-200  text-gray-700 p-2 rounded shadow-lg mt-2">
+                              Download Appointment Slip
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </li>
                   ))
